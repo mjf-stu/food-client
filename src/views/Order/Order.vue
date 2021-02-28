@@ -1,12 +1,12 @@
 <template>
     <div>
-        <h1>你好</h1>
+        <h1>Order</h1>
     </div>
 </template>
 
 <script>
 export default {
-
+    name : "Order"
 }
 </script>
 
