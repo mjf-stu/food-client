@@ -1,23 +1,35 @@
 <template>
     <div>
-        <h1>你好</h1>
+        <tab-bar class="tabbar"/>
         <router-view/>
     </div>
 </template>
 
 <script>
+// 组件的引入
+import TabBar from "./components/TabBar/TabBar.vue"
+
 export default {
-    name : "App"
+    name : "App",
+    components : {
+        TabBar
+    }
 }
 </script>
 
 <style scoped>
 /* 引入样式去重 */
 @import url("assets/css/reset.css");
+/* 公共样式 */
 @import url("assets/css/CommonClass.css");
-p{
-    width: 50rem;
-    height: 100rem;
-    border: 1px;
+/* iconfont类 */
+@import url("assets/css/iconClass/iconfont.css");
+
+/* tabbar */
+.tabbar{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 }
 </style>

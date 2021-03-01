@@ -3,6 +3,18 @@ html{
   font-size: 0.266667vw;
 }
 
+/* 
+  颜色等变量的定义
+*/
+:root{
+  --main-color: #41b883; 
+  /* tabbarItem中运用 */
+  --tabbarName-fontsize: 12px;
+  /* tabbarContain中运用 */
+  --tabbarIcon-fontsize: 22px;
+  --tabbarContain-shadow: #d1d1d1;
+}
+
 /* 单行省略 */
 .ellipsis{
     overflow: hidden;
