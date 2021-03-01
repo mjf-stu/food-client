@@ -1,9 +1,15 @@
+/* 设置vw适配rem 375px适配100vw*/
+html{
+  font-size: 0.266667vw;
+}
+
 /* 单行省略 */
 .ellipsis{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
 /* 多行省略 */
 .lineellipsis{
   overflow: hidden;
@@ -13,5 +19,4 @@
   /* 省略行数 */
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-
 }
