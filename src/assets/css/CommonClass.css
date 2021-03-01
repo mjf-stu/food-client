@@ -7,12 +7,18 @@ html{
   颜色等变量的定义
 */
 :root{
-  --main-color: #41b883; 
+  --main-color: #ff8800; 
   /* tabbarItem中运用 */
   --tabbarName-fontsize: 12px;
   /* tabbarContain中运用 */
   --tabbarIcon-fontsize: 22px;
   --tabbarContain-shadow: #d1d1d1;
+
+  /* HeaderTop组件的背景渐变 */
+  --headerTop-bgStart: #ffe45e;
+  --headerTop-bgEnd: #ffd071;
+  --headerTop-fontsize: 16px;
+  --headerTop-color: #000000;
 }
 
 /* 单行省略 */
