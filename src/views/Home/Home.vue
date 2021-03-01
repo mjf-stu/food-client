@@ -40,9 +40,4 @@ export default {
     border-top-right-radius: 40px;
     padding: 10rem 10rem 0rem 10rem;
   }
-  .baby{
-      /* height: 100px;
-      width: 100px;
-      background-color: #ffffff; */
-  }
 </style>
