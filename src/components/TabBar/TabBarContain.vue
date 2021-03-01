@@ -42,7 +42,6 @@ export default {
     return {
       //   默认选中状态
       current: 0,
-      route: this.$route
     };
   },
   watch:{
