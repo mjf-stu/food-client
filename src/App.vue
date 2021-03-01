@@ -1,5 +1,6 @@
 <template>
     <div>
+        {{$route.path}}
         <tab-bar class="tabbar"/>
         <router-view/>
     </div>

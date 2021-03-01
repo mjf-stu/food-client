@@ -17,3 +17,10 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### 可以优化的地方
+tabbarContain文件中的
+      :class="{ selected: current === index }"
+可以改成
+      :class="{ selected: itemRouter === $router.path }"
+好处：可以省略watch监听
