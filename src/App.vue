@@ -6,10 +6,13 @@
 
 <script>
 export default {
-
+    name : "App"
 }
 </script>
 
 <style scoped>
+/* 引入样式去重 */
+@import url("assets/css/reset.css");
+@import url("assets/css/CommonClass.css");
 
 </style>
