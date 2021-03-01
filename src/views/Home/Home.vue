@@ -3,16 +3,20 @@
         <home-header-top/>
         <!-- 圆角残留的颜色 -->
         <div class="bgRadius"></div>
-        <div class="content"></div>
+        <better-scroll class="wrapper">
+            <div class="baby"></div>
+        </better-scroll>
     </div>
 </template>
 
 <script>
 import HomeHeaderTop from "./child/HomeHeaderTop.vue"
+import BetterScroll from "@/components/BetterScroll/BetterScroll.vue"
 export default {
     name : "Home",
     components: {
-        HomeHeaderTop
+        HomeHeaderTop,
+        BetterScroll,
     }
 }
 </script>
@@ -23,13 +27,22 @@ export default {
     height: 40px;
     background-image: linear-gradient(to right,  var(--headerTop-bgStart), var(--headerTop-bgEnd));
   }
-  .content{
-    width: 375px;
-    height: 200px;
-    border-radius: 40px;
-    background-color: #fcfcfc;
+/* betterscroll的容器宽高 */
+  .wrapper{
+    width: calc(375rem - 20rem);
     position: absolute;
     left: 0px;
     top: 50px;
+    bottom: 50px;
+    overflow: hidden;
+    background-color: #e6e6e6;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    padding: 10rem 10rem 0rem 10rem;
+  }
+  .baby{
+      /* height: 100px;
+      width: 100px;
+      background-color: #ffffff; */
   }
 </style>
