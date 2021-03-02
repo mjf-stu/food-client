@@ -2,7 +2,9 @@
 html{
   font-size: 0.266667vw;
 }
-
+body{
+  font-size: 14px;
+}
 /* 
   颜色等变量的定义
 */
@@ -14,11 +16,19 @@ html{
   --tabbarIcon-fontsize: 22px;
   --tabbarContain-shadow: #d1d1d1;
 
+  /* z-index的定义 */
+  --bs-index: 1;
+  --sort-index: 2;
+
   /* HeaderTop组件的背景渐变 */
   --headerTop-bgStart: #ffe45e;
   --headerTop-bgEnd: #ffd071;
   --headerTop-fontsize: 16px;
   --headerTop-color: #000000;
+
+  /* home */
+  --comp-bg: #ffffff;
+  --comp-color: #666666;
 }
 
 /* 单行省略 */

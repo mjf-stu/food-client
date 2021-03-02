@@ -20,11 +20,13 @@ export default {
 .searchitem{
     background-color: #ebebeb;
     color: #b7b7b7;
-    width: calc(375rem - 30 - 15);
+    /* 375减去左内边距和父元素的内边距 */
+    width: 330rem;
     height: 30rem;
     border-radius: 15rem;
     padding-left: 15rem;
     line-height: 30rem;
+    margin: 0rem auto;
   }
 .searchitem span{
     margin-left: 10rem;
