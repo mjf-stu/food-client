@@ -47,7 +47,6 @@ export default {
     this.pointScore = this.avgScore - this.intScore 
     this.pointStar.width = this.starSize * this.pointScore + "px"
     this.starFontSize["font-size"] = this.starSize + "px"
-    console.log(this.starFontSize)
   }
 };
 </script>

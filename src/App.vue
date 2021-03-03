@@ -1,7 +1,9 @@
 <template>
     <div>
         <tab-bar class="tabbar"/>
-        <router-view/>
+        <keep-alive>
+            <router-view/>
+        </keep-alive>
     </div>
 </template>
 

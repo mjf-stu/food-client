@@ -2,9 +2,7 @@
   <div class="container">
     <div class="msg">
       <div>
-        <img
-          :src="shopInfo.shopImg"
-        />
+        <img :src="shopInfo.shopImg" @load="imgLoad"/>
       </div>
       <div>
         <div class="shopName">{{shopInfo.name}}</div>
@@ -21,7 +19,7 @@
       </div>
     </div>
     <div class="prefer" v-for="item of shopInfo.preferMsg" :key="item.id">
-      <div><span>{{item.promotion}}</span></div>
+      <div><span v-if="item.promotion!==''">{{item.promotion}}</span></div>
       <div class="ellipsis"><img :src="item.icon"/><span>{{item.content}}</span></div>
     </div>
   </div>
@@ -33,6 +31,9 @@ import StarAssess from "../StarAssess/StarAssess.vue"
 
 export default {
   name: "ShopList",
+  components:{
+    StarAssess
+  },
   props:{
     shopInfo:{
       type:Object,
@@ -50,11 +51,14 @@ export default {
       }
     }
   },
-  components:{
-    StarAssess
-  },
   created(){
     this.starAssessWidth.width = 5 * this.starSize + "rem"
+  },
+  methods:{
+    // 监听图片加载事件
+    imgLoad(){
+      this.$emit("imgLoadOK")
+    }
   }
 };
 </script>
