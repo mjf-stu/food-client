@@ -18,9 +18,10 @@ export default {
   height: 40rem;
   color: var(--comp-color);
   background-color: var(--comp-bg);
+  border-bottom: var(--comp-borderBottom);
+
   padding-right: 15rem;
   margin-top: 15rem;
-
   display: flex;
   text-align: center;
   align-items: center;

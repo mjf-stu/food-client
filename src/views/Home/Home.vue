@@ -7,12 +7,17 @@
           ref="home-sort1"/>
         <better-scroll 
           class="wrapper"
-          :isOnScroll="2"
+          :isOnScroll="3"
           @listenScroll="listenScroll">
             <div class="baby">
               <home-search-comp ref="search-comp"/>
               <home-nav/>
               <home-sort ref="home-sort2"/>
+              <shop-item 
+                v-for="item of shopDatas.data"
+                :shopInfo="item"
+                :key="item.shop_id"
+                :starSize="16"/>
             </div>
         </better-scroll>
     </div>
@@ -21,6 +26,8 @@
 <script>
 //引入公共组件
 import BetterScroll from "@/components/BetterScroll/BetterScroll.vue"
+import ShopItem from "@/components/ShopItem/ShopItem.vue"
+import StarAssess from '@/components/StarAssess/StarAssess.vue'
 
 //引入子组件
 import HomeHeaderTop from "./child/HomeHeaderTop.vue"
@@ -36,6 +43,8 @@ export default {
     components: {
       //公共组件注册
       BetterScroll,
+      ShopItem,
+      StarAssess,
 
       //子组件的注册
       HomeHeaderTop,
@@ -98,7 +107,7 @@ export default {
         let page = ++shopDatas.page
         let type = shopDatas.type
         shopList(page,type).then(results=>{
-          shopDatas.data = results
+          shopDatas.data.push(...results)
           console.log(this.shopDatas)
         }).catch(err=>{console.log("获取shoplist出错"+err)})
       }
@@ -110,7 +119,7 @@ export default {
   .home-sort-fix{
     margin-top: 0rem;
     position: absolute;
-    top: 50px;
+    top: 48px;
     left: 0px;
     right: 0px;
     z-index: var(--sort-index);
@@ -120,7 +129,7 @@ export default {
     width: 375rem;
     position: absolute;
     left: 0rem;
-    top: 50px;
+    top: 49px;
     z-index: var(--bs-index);
     bottom: 50px;
     overflow: hidden;
@@ -135,5 +144,4 @@ export default {
     border-top-right-radius: 24rem;
     padding-top: 15rem;
   }
-  
 </style>

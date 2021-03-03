@@ -9,6 +9,10 @@ body{
   颜色等变量的定义
 */
 :root{
+  /* z-index的定义 */
+  --bs-index: 1;
+  --sort-index: 2;
+
   --main-color: #ff8800; 
   /* tabbarItem中运用 */
   --tabbarName-fontsize: 12px;
@@ -16,19 +20,19 @@ body{
   --tabbarIcon-fontsize: 22px;
   --tabbarContain-shadow: #d1d1d1;
 
-  /* z-index的定义 */
-  --bs-index: 1;
-  --sort-index: 2;
-
   /* HeaderTop组件的背景渐变 */
   --headerTop-bgStart: #ffe45e;
   --headerTop-bgEnd: #ffd071;
   --headerTop-fontsize: 16px;
   --headerTop-color: #000000;
 
-  /* home */
+  /* ShopList字体颜色 */
+  --ShopList-tagcolor: #ff4b10;
+
+  /* home子组件的通用颜色 */
   --comp-bg: #ffffff;
   --comp-color: #666666;
+  --comp-borderBottom: #d8d8d8 1px solid;
 }
 
 /* 单行省略 */

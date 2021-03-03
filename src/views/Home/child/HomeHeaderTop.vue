@@ -38,12 +38,14 @@ export default {
 
 <style scoped>
 .headerTop {
-  height: 50rem;
-  padding-left: 15rem;
+  height: 50px;
+  padding-left: 15px;
 }
 .search {
   width: 270rem;
-  margin-top: 10rem;
+  height: 30px;
+  margin-top: 10px;
+  line-height: 30px;
 }
 .search-enter-active,
 .header-enter-active,
