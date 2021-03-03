@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" @click="toDetail(shopInfo.shop_id,shopInfo)">
     <div class="msg">
       <div>
         <img :src="shopInfo.shopImg" @load="imgLoad"/>
@@ -55,6 +55,10 @@ export default {
     this.starAssessWidth.width = 5 * this.starSize + "rem"
   },
   methods:{
+    // 监听跳转到详情页
+    toDetail(shop_id,shopInfo){
+      this.$router.push({path:"/ShopDetail/"+shop_id+"",query:{shopInfo:shopInfo}})
+    },
     // 监听图片加载事件
     imgLoad(){
       this.$emit("imgLoadOK")

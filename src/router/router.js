@@ -7,6 +7,8 @@ const Search = () => import("@/views/Search/Search.vue")
 const Order = () => import("@/views/Order/Order.vue")
 const Profile = () => import("@/views/Profile/Profile.vue")
 
+const ShopDetail = () => import("@/views/Detail/ShopDetail/ShopDetail.vue")
+
 Vue.use(Router)
 
 const router = new Router({
@@ -32,6 +34,10 @@ const router = new Router({
         {
             path : "/Profile",
             component : Profile
+        },
+        {
+            path : "/ShopDetail/:shop_id",
+            component : ShopDetail
         }
     ]
 }) 
