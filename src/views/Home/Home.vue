@@ -28,6 +28,9 @@ import HomeSearchComp from "./child/HomeSearchComp.vue"
 import HomeNav from './child/HomeNav.vue'
 import HomeSort from './child/HomeSort.vue'
 
+// 引入axios请求函数
+import {shopList} from "@/network/shop_req"
+
 export default {
     name : "Home",
     components: {
@@ -44,15 +47,29 @@ export default {
       return {
         //控制头部是否切换
         HeaderisShow: true,
+
         //获取searchItem的高度
         searchCompOffsetTop: 0,
         searchCompHeight: 0,
+
         //控制筛选栏是否显示
         SortisShow: false,
         sortCompOffsetTop: 0,
+
+        //请求数据列表
+        shopDatas:{
+          // 默认没有区分类型
+          type:"all",
+          page:-1,
+          data:[]
+        }
       }
     },
     //生命周期函数
+    created(){
+      // 获取后台shoplist数据 通过methods方法来请求
+      this.getShopList(this.shopDatas)
+    },
     mounted(){
       //通过$refs获取对应的组件---通过$el获取这个组件的dom对象
       this.searchCompOffsetTop = this.$refs["search-comp"].$el.offsetTop
@@ -74,6 +91,17 @@ export default {
         // 判断筛选栏是否显示
         this.SortisShow = this.sortCompOffsetTop <= -y?true : false
       },
+
+      // 获取列表数据函数
+      getShopList(shopDatas){
+        // shopList.page = shopList.page + 1
+        let page = ++shopDatas.page
+        let type = shopDatas.type
+        shopList(page,type).then(results=>{
+          shopDatas.data = results
+          console.log(this.shopDatas)
+        }).catch(err=>{console.log("获取shoplist出错"+err)})
+      }
     }
 }
 </script>
