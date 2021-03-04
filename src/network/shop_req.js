@@ -7,3 +7,13 @@ export function shopList(page,cateName){
         params: {page,cateName}
     })
 }
+
+export function shopDetail(shop_id){
+    return shopRequest({
+        method: "GET",
+        url: "/shopdetail",
+        params: {
+            shop_id
+        }
+    })
+}

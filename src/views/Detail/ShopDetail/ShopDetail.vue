@@ -1,15 +1,20 @@
 <template>
-    <div class="container">
+<div>
+    <div class="container-top">
         <header-top class="header-top">
             <i class="iconfont icon-fanhui iconSize" @click="toBack"></i>
         </header-top>
         <detail-top-tips :shopInfo="shopInfo" ref="tips"/>
-        <div class="tabControl" style="margin-top:70rem;">
-            <div id="selected">点菜</div>
-            <div>订单</div>
-            <div>评价</div>
+    </div>
+    <div>
+        <tab-control :itemNames="['点菜','评价','商家']" @changeTable="changeTable"/>
+        <div class="otherInfo">
+            <detail-menu v-show="infoShow===0" :shop_id="shopInfo.shop_id"/>
+            <div v-show="infoShow===1">品论</div>
+            <div v-show="infoShow===2">商家</div>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -18,6 +23,8 @@ import HeaderTop from "@/components/HeaderTop/HeaderTop.vue"
 
 // 引入子组件
 import DetailTopTips from "./child/DetailTopTips.vue"
+import TabControl from "./child/ShopDetailTabControl.vue"
+import DetailMenu from "./child/DetailMenu.vue"
 
 export default {
   name: "ShopDetail",
@@ -25,29 +32,45 @@ export default {
     // 公共组件
       HeaderTop,
     // 子组件
-      DetailTopTips
+      DetailTopTips,
+      TabControl,
+      DetailMenu
   },
   data(){
-      return{
-          shopInfo:{}
-      }
-  },
-  methods:{
-      toBack(){
-        this.$router.go(-1)
-      }
+    return{
+        shopInfo:{},
+        foodInfo:{
+            msg:"这里是点菜区域"
+        },
+        sorceInfo:{
+            msg:"不好意思暂时还未有评价信息"
+        },
+        storeInfo:{
+            msg:"不好意思暂时还未提供门店信息"
+        },
+        // 控制tabcontrol显示那个分块
+        infoShow:0,
+    }
   },
   created(){
-      this.shopInfo =  this.$route.query.shopInfo
+    this.shopInfo =  this.$route.query.shopInfo
   },
-  mounted(){
+  methods:{
+    //   自定义事件与原生事件
+    toBack(){
+      this.$router.go(-1)
+    },
+    // 监听tabcontrol的点击事件
+    changeTable(index){
+      this.infoShow = index
+    },
 
-  }
+  },
 }
 </script>
 
 <style scoped>
-.container{
+.container-top{
     position: relative;
 }
 .header-top{
@@ -56,31 +79,17 @@ export default {
 .iconSize{
     font-size: 25rem;
 }
+.otherInfo{
+    height: auto;
+    background-color: #FFFFFF;
 
-.tabControl{
-    /* background-color: yellow; */
-    display: flex;
+    position:absolute;
+    top: 190px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 3px;
 }
-.tabControl div{
-    margin: 0px 10px;
-    font-size: 18px;
-    font-weight: 700;
-    opacity: 0.6;
-}
-#selected{
-    position: relative;
-    opacity: 0.9;
-}
-#selected::after{
-    content: '';
-    height: 2px;
-    width: 25px;
-    display: block;
-    background-color: rgb(255, 213, 99);
 
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-}
+
 </style>
