@@ -13,6 +13,8 @@ body{
   --bs-index: 1;
   --sort-index: 2;
   --menu-index: 3;
+  /* 在menu中的bottom购物栏运用 */
+  --goodsCount-index: 5;
 
   --main-color: #ff8800; 
   /* tabbarItem中运用 */

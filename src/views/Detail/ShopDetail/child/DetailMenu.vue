@@ -43,13 +43,18 @@
     <!-- 底部提交订单栏 -->
     <div class="menuCart">
       <div class="left">
-        <img src="@/assets/img/Detail/cartOFF.png"/>
-        <span>请选择你的订单</span>
+        <div class="goodsCount" v-show="getAllGoods() !== 0">{{getAllGoods()===0?"":getAllGoods().count}}</div>
+        <img v-show="getAllGoods() === 0" src="@/assets/img/Detail/cartOFF.png"/>
+        <span v-show="getAllGoods() === 0">请选择你的订单</span>
+        <img  class="imgon" v-show="getAllGoods() !== 0" src="@/assets/img/Detail/cartON.png"/>
+        <span class="spanon" v-show="getAllGoods() !== 0">￥{{getAllGoods().total}}</span>
       </div>
       <div class="right">
-        <div>1份起送</div>
+        <div v-show="getAllGoods() === 0">1份起送</div>
+        <div class="divon" v-show="getAllGoods() !== 0">去结算</div>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -141,6 +146,10 @@ export default {
     // 自定义函数=============
     getTagCount(shop_id,tagName){
       return this.$store.getters["shopCart/getGoodsNumberByTagName"](shop_id,tagName)
+    },
+
+    getAllGoods(){
+      return this.$store.getters["shopCart/getAllGoods"](this.shop_id)
     }
   },
 };
@@ -248,9 +257,23 @@ export default {
   border-bottom-left-radius: 25px;
   background-color: #000000;
 }
+.goodsCount{
+  width: 14px;
+  height: 14px;
+  text-align: center;
+  line-height: 1;
+  color: #FFFFFF;
+  background-color: #FF0000;
+  border-radius: 7px;
+  position: relative;
+  left: 65px;
+  top: 10px;
+  z-index: var(--goodsCount-index);
+}
 .menuCart img{
   width: 47px;
   height: 69px;
+  vertical-align: middle;
   
   position: relative;
   bottom: 19px;
@@ -259,14 +282,26 @@ export default {
 .menuCart .left span{
   margin-left: 20px;
 }
+.spanon{
+  color: #FFFFFF;
+  font-size: 18px; 
+}
 
-.menuCart .right{
+.menuCart .right,.divon{
   width: 110rem;
   height: 50px;
   text-align: center;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
+  background-color: #000000;
+  /* background-image: linear-gradient(to right,  var(--headerTop-bgStart), var(--headerTop-bgEnd)); */
+}
+.divon{
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: bold;
   background-image: linear-gradient(to right,  var(--headerTop-bgStart), var(--headerTop-bgEnd));
 }
+
 
 </style>

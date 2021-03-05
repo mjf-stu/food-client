@@ -3,7 +3,7 @@ const shopCart = {
     state: {
         cart:[]
         // 测试数据
-        // cart: [{ shop_id: 2, goods: [{ id: 1, name: "1个黑椒鸡块", tagname: "配餐", number: 2, money: 0.88 }] }],
+        // cart: [{ shop_id: 2, goods: [{ id: 1, name: "1个黑椒鸡块", tagname: "配餐", number: 2, money: 0.88, foodImg: xxxx}] }],
     },
     getters: {
         // 对应商店的对应商品数量===由于需要传参，但是getters函数又不支持传参所以只能通过返回一个有参数的函数
@@ -51,7 +51,17 @@ const shopCart = {
                     return 0
                 }
                 else{
-                    // 由于如果goods的长度为0所以只要存在shop——id那么就有goods
+                    // 总价
+                    let total = 0
+                    // 总数量
+                    let count = 0
+                    for(let item of shop_from_shopId[0].goods){
+                        total += item.number * item.money
+                        count += item.number
+                    }
+                    total = Math.floor(total*100)/100
+                    // 由于如果goods的长度为0就不会有对应的shop——id所以只要存在shop——id那么就有goods
+                    return {goods:shop_from_shopId.goods,total,count}
                 }
             }
         }
@@ -82,7 +92,8 @@ const shopCart = {
                         name: payload.foodInfo.foodName, 
                         tagName: payload.foodInfo.tagName, 
                         number: 1, 
-                        money: payload.foodInfo.minPrice
+                        money: payload.foodInfo.minPrice,
+                        foodImg: payload.foodInfo.foodImg
                     })
                 }
                 // 如果有相关的food——id数据则可以直接商品+1
