@@ -1,5 +1,6 @@
 <template>
   <div class="menu">
+    <!-- 左侧导航栏 -->
     <div class="menuNav">
       <div class="navContain">
         <div
@@ -11,17 +12,25 @@
         >
           <img :src="item.icon" v-if="item.icon !== ''" />
           {{ item.food_tag_name }}
+          <!-- 显示在右上角的计数器 -->
+          <div class="tagCount" v-show="getTagCount(item.shop_id,item.food_tag_name)>0">
+            {{getTagCount(item.shop_id,item.food_tag_name)}}
+          </div>
         </div>
       </div>
     </div>
+    <!-- 右侧商品列表 -->
     <div class="menuList">
+      <!-- 商品列表的分类title显示 -->
       <div class="currentNav">{{ currentItem }}</div>
       <div class="itemContain" @scroll="itemContainScroll" ref="itemContain">
         <template v-for="(tag, index) in tagList">
           <div :key="tag.id">
+            <!-- 商品对应的title -->
             <div class="itemTitle" v-if="index !== 0" :ref="'tag' + index">
               {{ tag.food_tag_name }}
             </div>
+            <!-- 商品对应的item -->
             <menu-item
               v-for="item of foodList[index]"
               :foodItem="item"
@@ -29,6 +38,16 @@
             />
           </div>
         </template>
+      </div>
+    </div>
+    <!-- 底部提交订单栏 -->
+    <div class="menuCart">
+      <div class="left">
+        <img src="@/assets/img/Detail/cartOFF.png"/>
+        <span>请选择你的订单</span>
+      </div>
+      <div class="right">
+        <div>1份起送</div>
       </div>
     </div>
   </div>
@@ -56,7 +75,9 @@ export default {
       currentItem: "",
       tagList: [],
       foodList: [],
+      // 记录conatin有所有的tagoffsetTop
       tagY: [0],
+      // 用来控制监视的滚动在一定范围内只会进行1次内容的更改
       currentTag: 0,
     };
   },
@@ -76,6 +97,7 @@ export default {
     }
   },
   methods: {
+    // 事件相关===============
     // 监听menuItem的点击事件
     select(index, tagName) {
       // 更改nav样式
@@ -115,6 +137,11 @@ export default {
         this.currentItem = this.tagList[0].food_tag_name;
       });
     },
+
+    // 自定义函数=============
+    getTagCount(shop_id,tagName){
+      return this.$store.getters["shopCart/getGoodsNumberByTagName"](shop_id,tagName)
+    }
   },
 };
 </script>
@@ -131,6 +158,9 @@ export default {
   text-align: center;
   overflow: auto;
 }
+
+
+/* 左边纵向导航栏 */
 .navContain {
   height: 130%;
 }
@@ -139,6 +169,7 @@ export default {
   height: 45rem;
   line-height: 45rem;
   color: #666666;
+  position: relative;
 }
 .navItem img {
   width: 15rem;
@@ -150,6 +181,20 @@ export default {
 .selected {
   background-color: #ffffff;
 }
+.tagCount{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 14px;
+  height: 14px;
+  background-color: #FF0000;
+  color: #FFFFFF;
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+/* 右边物品列表 */
 .menuList {
   width: 285rem;
   height: calc(100% - 45rem);
@@ -166,10 +211,62 @@ export default {
   height: 100%;
   overflow-y: auto;
 }
+/* 防止底部购物栏阻挡最后一个menuItem */
+.itemContain::after{
+  content: '';
+  display: block;
+  height: 50px;
+}
+
 .itemTitle {
   padding-left: 10px;
   color: #666666;
 }
 .menuItem {
 }
+
+/* 底部购物选项栏 */
+.menuCart{
+  width: 355rem;
+  height: 50px;
+  color: #bebebe;
+  line-height: 50px;
+
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+}
+.menuCart .left{
+  display: flex;
+  flex: 1;
+
+  font-size: 12px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  background-color: #000000;
+}
+.menuCart img{
+  width: 47px;
+  height: 69px;
+  
+  position: relative;
+  bottom: 19px;
+  left: 12.5rem;
+}
+.menuCart .left span{
+  margin-left: 20px;
+}
+
+.menuCart .right{
+  width: 110rem;
+  height: 50px;
+  text-align: center;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  background-image: linear-gradient(to right,  var(--headerTop-bgStart), var(--headerTop-bgEnd));
+}
+
 </style>

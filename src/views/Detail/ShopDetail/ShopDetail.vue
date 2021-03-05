@@ -7,7 +7,7 @@
         <detail-top-tips :shopInfo="shopInfo" ref="tips"/>
     </div>
     <div>
-        <tab-control :itemNames="['点菜','评价','商家']" @changeTable="changeTable"/>
+        <tab-control class="tabControl" :itemNames="['点菜','评价','商家']" @changeTable="changeTable"/>
         <div class="otherInfo">
             <detail-menu v-show="infoShow===0" :shop_id="shopInfo.shop_id"/>
             <div v-show="infoShow===1">品论</div>
@@ -74,7 +74,7 @@ export default {
     position: relative;
 }
 .header-top{
-    height: 90px;
+    height: 80px;
 }
 .iconSize{
     font-size: 25rem;
@@ -84,12 +84,14 @@ export default {
     background-color: #FFFFFF;
 
     position:absolute;
-    top: 190px;
+    top: 165px;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    z-index: 3px;
+    z-index: var(--menu-index);
 }
-
+.tabControl{
+  margin-top: 55px;
+}
 
 </style>

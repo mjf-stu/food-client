@@ -1,6 +1,6 @@
 <template>
 <!-- 外边距100 - （90 - 50算出tip组件多余高度）+ 10 外边距加空隙 -->
-  <div class="tabControl" style="margin-top:70px;">
+  <div class="tabControl">
     <div 
       class="tabControlItem"
       v-for="(item,index) of itemNames" 

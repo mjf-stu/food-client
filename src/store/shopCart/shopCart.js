@@ -3,10 +3,10 @@ const shopCart = {
     state: {
         cart:[]
         // 测试数据
-        // cart: [{ shop_id: 1, goods: [{ id: 1, name: "1个黑椒鸡块", tagname: "配餐", number: 2, money: 0.88 }] }],
+        // cart: [{ shop_id: 2, goods: [{ id: 1, name: "1个黑椒鸡块", tagname: "配餐", number: 2, money: 0.88 }] }],
     },
     getters: {
-        // 对应商店的对应商品数量
+        // 对应商店的对应商品数量===由于需要传参，但是getters函数又不支持传参所以只能通过返回一个有参数的函数
         getGoodsNumber(state, getters, rootState) {
             return function (shop_id, food_id) {
                 // 获取shop_id对应的商店的购物车对象
@@ -18,6 +18,40 @@ const shopCart = {
                     // 通过food_id获取对应的goods
                     let food_from_id = shopcart_from_id.goods.filter(item => item.id === food_id)
                     return food_from_id.length === 0 ? 0 : food_from_id[0].number
+                }
+            }
+        },
+        // 获取对应tagName的商品数量（只需要传入当前shop——id与tagname即可）
+        getGoodsNumberByTagName(state,getters,rootState){
+            return function(shop_id,tagName){
+                let shopcart_from_id = state.cart.filter(item => item.shop_id === shop_id)[0]
+                if (shopcart_from_id === undefined) {
+                    return 0
+                }
+                else{
+                    let goods_from_tagName = shopcart_from_id.goods.filter(item=>item.tagName === tagName)
+                    if(goods_from_tagName.length === 0){
+                        return 0
+                    }
+                    else{
+                        let count=0
+                        for(let item of goods_from_tagName){
+                            count = count + item.number
+                        }
+                        return count
+                    }
+                }
+            }
+        },
+        // 获取当前商家的goods所有订单---传入shop——id
+        getAllGoods(state,getters,rootState){
+            return function(shop_id){
+                let shop_from_shopId = state.cart.filter(item => item.shop_id === shop_id)
+                if(shop_from_shopId.length === 0){
+                    return 0
+                }
+                else{
+                    // 由于如果goods的长度为0所以只要存在shop——id那么就有goods
                 }
             }
         }
@@ -33,7 +67,7 @@ const shopCart = {
                     goods:[{
                         id: payload.id, 
                         name: payload.foodInfo.foodName, 
-                        tagname: payload.foodInfo.tagName, 
+                        tagName: payload.foodInfo.tagName, 
                         number: 1, 
                         money: payload.foodInfo.minPrice
                     }]
@@ -46,7 +80,7 @@ const shopCart = {
                     shopcart_from_id.goods.push({
                         id: payload.id, 
                         name: payload.foodInfo.foodName, 
-                        tagname: payload.foodInfo.tagName, 
+                        tagName: payload.foodInfo.tagName, 
                         number: 1, 
                         money: payload.foodInfo.minPrice
                     })

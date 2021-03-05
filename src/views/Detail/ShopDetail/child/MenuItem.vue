@@ -93,7 +93,8 @@ export default {
   color: rgb(104, 104, 104);
 }
 .title {
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: bold;
   color: rgb(40, 40, 40);
 }
 .description {

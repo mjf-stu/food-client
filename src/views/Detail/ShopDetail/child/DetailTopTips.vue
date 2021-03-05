@@ -34,13 +34,13 @@ export default {
   /* height: 100rem; */
   background-color: #ffffff;
   box-shadow: 0 0 4px #adadad;
-  border-radius: 20px;
-  padding: 10px 10rem;
+  border-radius: 10px;
+  padding: 5px 10rem;
   line-height: 25px;
 
   position: absolute;
   left: 50%;
-  top: 50px;
+  top: 40px;
   transform: translateX(-50%);
 }
 .shopInfo img {

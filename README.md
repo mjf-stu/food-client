@@ -18,7 +18,7 @@ npm run build
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### 可以优化的地方
+### 可以优化的地方与日记
 date1
 tabbarContain文件中的
       :class="{ selected: current === index }"
@@ -33,3 +33,7 @@ date2
 date3
 星星评价
       利用俩个星星叠在一起---通过overflow hidden的方式 + 数据库传过来的数字进行控制有颜色的星星显示多宽的内容
+
+date5
+1.通过判断一个值在当前索引和下一个索引之间，最后都会由于n+1造成数组溢出，可以通过给数组最后添加一个无求大的值，这样就可以避免循环到最后一个tag出现数组溢出的问题
+2.使用vuex 相同shop_id && food_id 使用计算属性来获取可以让 多个相同id的menuitem组件的数据同步更新
