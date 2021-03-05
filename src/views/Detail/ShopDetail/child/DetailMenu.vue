@@ -54,7 +54,7 @@
         <div class="divon" v-show="getAllGoods() !== 0">去结算</div>
       </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -231,8 +231,8 @@ export default {
   padding-left: 10px;
   color: #666666;
 }
-.menuItem {
-}
+/* .menuItem {
+} */
 
 /* 底部购物选项栏 */
 .menuCart{
