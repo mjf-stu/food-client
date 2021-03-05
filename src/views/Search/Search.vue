@@ -12,6 +12,14 @@ export default {
   name: "Search",
   components: { 
       SearchHeaderTop 
+  },
+  data(){
+      return {
+          obj:{
+              a:[2,3],
+              b:3
+          }
+      }
   }
 }
 </script>

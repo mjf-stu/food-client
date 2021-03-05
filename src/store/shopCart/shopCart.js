@@ -1,0 +1,83 @@
+const shopCart = {
+    namespaced: true,
+    state: {
+        cart:[]
+        // 测试数据
+        // cart: [{ shop_id: 1, goods: [{ id: 1, name: "1个黑椒鸡块", tagname: "配餐", number: 2, money: 0.88 }] }],
+    },
+    getters: {
+        // 对应商店的对应商品数量
+        getGoodsNumber(state, getters, rootState) {
+            return function (shop_id, food_id) {
+                // 获取shop_id对应的商店的购物车对象
+                let shopcart_from_id = state.cart.filter(item => item.shop_id === shop_id)[0]
+                if (shopcart_from_id === undefined) {
+                    return 0
+                }
+                else {
+                    // 通过food_id获取对应的goods
+                    let food_from_id = shopcart_from_id.goods.filter(item => item.id === food_id)
+                    return food_from_id.length === 0 ? 0 : food_from_id[0].number
+                }
+            }
+        }
+    },
+    mutations: {
+        // 添加商店某些商品的数量
+        addGoods(state,payload) {
+            let shopcart_from_id = state.cart.filter(item => item.shop_id === payload.shop_id)[0]
+            // 第一次点击+入商品时直接初始化一条数据
+            if (shopcart_from_id === undefined) {
+                state.cart.push({
+                    shop_id: payload.shop_id,
+                    goods:[{
+                        id: payload.id, 
+                        name: payload.foodInfo.foodName, 
+                        tagname: payload.foodInfo.tagName, 
+                        number: 1, 
+                        money: payload.foodInfo.minPrice
+                    }]
+                })
+            }
+            else{
+                let food_from_id = shopcart_from_id.goods.filter(item => item.id === payload.id)
+                // 如果有关于shop_id的相关数据  但是没有对应的food——id商品则初始化一条数据
+                if(food_from_id.length === 0){
+                    shopcart_from_id.goods.push({
+                        id: payload.id, 
+                        name: payload.foodInfo.foodName, 
+                        tagname: payload.foodInfo.tagName, 
+                        number: 1, 
+                        money: payload.foodInfo.minPrice
+                    })
+                }
+                // 如果有相关的food——id数据则可以直接商品+1
+                else{
+                    food_from_id[0].number++
+                }
+            }
+        },
+        
+        reduceGoods(state,payload){
+            // 因为只有数据存在才能进行数据减1，所以不用进行判断直接获取减1即可
+            let shopcart_by_id = state.cart.filter(item=>item.shop_id === payload.shop_id)[0]
+            let goods_by_id = shopcart_by_id.goods.filter(item=>item.id === payload.id)[0]
+            goods_by_id.number--
+            // 如果number为0则从购物车中撤销下来
+            if(goods_by_id.number === 0){
+                let index = shopcart_by_id.goods.findIndex(item=>item.id === payload.id)
+                shopcart_by_id.goods.splice(index,1)
+            }
+            // 如果当前商店的goods长度为0那么把当前商点从购物车中撤销下来
+            if(shopcart_by_id.goods.length === 0){
+                let index = state.cart.findIndex(item=>item.shop_id === payload.shop_id)
+                state.cart.splice(index,1)
+            }
+        }
+    },
+    actions: {
+
+    }
+}
+
+export default shopCart
