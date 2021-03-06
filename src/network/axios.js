@@ -2,8 +2,7 @@ import axios from "axios"
 
 // 关于shop的数据请求
 const ShopAxios = axios.create({
-    // baseURL: "http://127.0.0.1:8088",
-    baseURL: "http://192.168.101.48:8088",
+    baseURL: "http://127.0.0.1:8088",
     timeout: 5000
 })
 
@@ -29,8 +28,7 @@ export function shopRequest(config){
 
 // 关于shop的数据请求
 const UserAxios = axios.create({
-    // baseURL: "http://127.0.0.1:8088",
-    baseURL: "http://192.168.101.48:8088",
+    baseURL: "http://127.0.0.1:8088",
     timeout: 5000
 })
 
