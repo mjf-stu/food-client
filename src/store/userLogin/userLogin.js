@@ -1,10 +1,18 @@
 const userLogin = {
     namespaced: true,
     state: {userInfo:{}},
-    // { userId:0, userName:"xxx"}数据模拟
+    // { uId:0, uName:"xxx"}数据模拟
     getters:{
         getUserInfo(state,getters,rootState){
             return state.userInfo
+        }
+    },
+    mutations:{
+        uLogin(state,payload){
+            state.userInfo = payload.userInfo
+        },
+        uLogout(state,payload){
+            state.userInfo = {}
         }
     }
 }

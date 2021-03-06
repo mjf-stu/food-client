@@ -1,8 +1,12 @@
 <template>
   <div class="userInfo">
     <div v-if="Object.keys(getUserInfo).length === 0" @click="toLogin">
-      <img src="@/assets/img/UserLogo/userOff.png" />
+      <img src="@/assets/img/UserLogo/userOff.gif" />
       <span>登录/注册</span>
+    </div>
+    <div v-else>
+      <img src="@/assets/img/UserLogo/userOn.gif" />
+      <span>{{getUserInfo.uName}}</span>
     </div>
   </div>
 </template>

@@ -13,8 +13,8 @@
         <input type="text" placeholder="请输入密码" minlength="6" v-model="userPwd"/>
       </div>
       <div 
-        class="submit" 
-        @click="Login" 
+        class="submit"
+        @click="Login"
         :class="{ok:userName.length>=6 && userPwd.length>=6}">
       登录</div>
     </div>
@@ -22,6 +22,9 @@
 </template>
 
 <script>
+// ajax请求函数
+import {getUser} from "@/network/user_req.js"
+
 export default {
   name: "Login",
   data(){
@@ -35,7 +38,18 @@ export default {
           this.$router.go(-1)
       },
       Login(){
-          console.log(1)
+        if(this.userName.length>=6 && this.userPwd.length>=6){
+          getUser(this.userName,this.userPwd)
+          .then(val=>{
+            this.$store.commit({
+              type:"userLogin/uLogin",
+              userInfo:val
+            })
+            this.userName=""
+            this.userPwd=""
+            this.$router.replace("/Profile")
+          })
+        }
       }
   }
 };
