@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .TabBarItem{
     flex: 1 1;
     text-align: center;

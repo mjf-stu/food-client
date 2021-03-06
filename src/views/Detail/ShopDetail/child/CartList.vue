@@ -67,8 +67,8 @@ export default {
   background-color: #14141450;
   flex: 1;
 }
-.CartListContain .inCart{
-}
+/* .CartListContain .inCart{
+} */
 .CartListContain .cleanCart{
   height: 50px;
   text-align: right;

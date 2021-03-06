@@ -26,3 +26,30 @@ ShopAxios.interceptors.response.use(res =>{
 export function shopRequest(config){
     return ShopAxios(config)
 }
+
+// 关于shop的数据请求
+const UserAxios = axios.create({
+    // baseURL: "http://127.0.0.1:8088",
+    baseURL: "http://192.168.101.48:8088",
+    timeout: 5000
+})
+
+UserAxios.interceptors.request.use(config=>{
+    console.log("配置没问题，且无需更改")
+    return config
+},reason =>{
+    console.log("配置出现问题")
+    return Promise.reject(reason)
+})
+
+UserAxios.interceptors.response.use(res =>{
+    console.log("请求成功，且返回数据")
+    return res.data
+},reason =>{
+    console.log("请求失败")
+    return Promise.reject(reason)
+})
+
+export function userRequest(config){
+    return UserAxios(config)
+}

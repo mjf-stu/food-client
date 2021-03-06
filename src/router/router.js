@@ -7,7 +7,11 @@ const Search = () => import("@/views/Search/Search.vue")
 const Order = () => import("@/views/Order/Order.vue")
 const Profile = () => import("@/views/Profile/Profile.vue")
 
+// 商家详情页
 const ShopDetail = () => import("@/views/Detail/ShopDetail/ShopDetail.vue")
+
+// 登录详情页
+const Login = () => import("@/views/Detail/UserDetail/Login.vue")
 
 Vue.use(Router)
 
@@ -38,6 +42,10 @@ const router = new Router({
         {
             path : "/ShopDetail/:shop_id",
             component : ShopDetail
+        },
+        {
+            path : "/Login",
+            component : Login
         }
     ]
 }) 

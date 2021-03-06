@@ -11,6 +11,7 @@ body{
 :root{
   /* z-index的定义 */
   --bs-index: 1;
+  --login-index: 2;
   --sort-index: 2;
   --menu-index: 3;
   /* 在menu中的bottom购物栏运用 */
@@ -36,6 +37,8 @@ body{
   --comp-bg: #ffffff;
   --comp-color: #666666;
   --comp-borderBottom: #d8d8d8 1px solid;
+
+  
 }
 
 /* 单行省略 */
@@ -54,4 +57,15 @@ body{
   /* 省略行数 */
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+/* 去除默认样式 */
+input[type="text" i]{
+  border: none;
+  padding: 0px;
+  outline: none;
+  background-color: none;
+}
+input[type="text" i]:focus{
+  border: none;
 }
