@@ -80,10 +80,11 @@ export default {
     font-size: 25rem;
 }
 .otherInfo{
-    height: auto;
+    /* width: 375rem;
+    height: 510rem;
+    height: auto; */
     background-color: #FFFFFF;
-
-    position:absolute;
+    position:absolute; 
     top: 165px;
     bottom: 0px;
     left: 0px;

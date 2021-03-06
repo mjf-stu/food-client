@@ -42,19 +42,30 @@
     </div>
     <!-- 底部提交订单栏 -->
     <div class="menuCart">
-      <div class="left">
-        <div class="goodsCount" v-show="getAllGoods() !== 0">{{getAllGoods()===0?"":getAllGoods().count}}</div>
-        <img v-show="getAllGoods() === 0" src="@/assets/img/Detail/cartOFF.png"/>
-        <span v-show="getAllGoods() === 0">请选择你的订单</span>
-        <img  class="imgon" v-show="getAllGoods() !== 0" src="@/assets/img/Detail/cartON.png"/>
-        <span class="spanon" v-show="getAllGoods() !== 0">￥{{getAllGoods().total}}</span>
+      <div class="left" v-show="getAllGoods() === 0">
+        <img src="@/assets/img/Detail/cartOFF.png"/>
+        <span >请选择你的订单</span>
       </div>
-      <div class="right">
-        <div v-show="getAllGoods() === 0">1份起送</div>
-        <div class="divon" v-show="getAllGoods() !== 0">去结算</div>
+      <div class="left"  v-show="getAllGoods() !== 0" @click="showCartList">
+        <div class="goodsCount">{{getAllGoods()===0?"":getAllGoods().count}}</div>
+        <img  class="imgon" src="@/assets/img/Detail/cartON.png"/>
+        <span class="spanon">￥{{getAllGoods().total}}</span>
+      </div>
+      <div class="right" v-show="getAllGoods() === 0">
+        <div>1份起送</div>
+      </div>
+      <div class="right" v-show="getAllGoods() !== 0">
+        <div class="divon">去结算</div>
       </div>
     </div>
-
+    <!-- 购物车的购物列表 -->
+    <transition name="outCart">
+    <cart-list 
+      :shop_id="this.shop_id" 
+      v-show="getAllGoods() !== 0 && CartListIsShow === 1"
+      @outCart="outCart"
+      />
+    </transition>
   </div>
 </template>
 
@@ -65,8 +76,14 @@ import { shopDetail } from "@/network/shop_req.js";
 // 引入公共组件
 import MenuItem from "./MenuItem.vue";
 
+// 引入兄弟组件
+import CartList from "./CartList.vue"
+
 export default {
-  components: { MenuItem },
+  components: { 
+    MenuItem,
+    CartList
+    },
   name: "DetailMenu",
   props: {
     shop_id: {
@@ -84,6 +101,8 @@ export default {
       tagY: [0],
       // 用来控制监视的滚动在一定范围内只会进行1次内容的更改
       currentTag: 0,
+      // 控制是否显示CartList
+      CartListIsShow: 0
     };
   },
   created() {
@@ -131,6 +150,18 @@ export default {
       }
     },
 
+    // 监听显示CartList
+    showCartList(){
+      if(this.getAllGoods() !== 0){
+        this.CartListIsShow = 1
+      }
+    },
+
+    // 关闭CartList
+    outCart(){
+      this.CartListIsShow = 0
+    },
+
     //   数据库请求相关=============
     //   获取详情数据
     getShopDetail(shop_id) {
@@ -149,6 +180,9 @@ export default {
     },
 
     getAllGoods(){
+      if(this.$store.getters["shopCart/getAllGoods"](this.shop_id)===0 && this.CartListIsShow ===1){
+        this.CartListIsShow = 0
+      }
       return this.$store.getters["shopCart/getAllGoods"](this.shop_id)
     }
   },
@@ -240,6 +274,7 @@ export default {
   height: 50px;
   color: #bebebe;
   line-height: 50px;
+  z-index: var(--goodsCount-index);
 
   position: absolute;
   bottom: 5px;
@@ -266,21 +301,20 @@ export default {
   background-color: #FF0000;
   border-radius: 7px;
   position: relative;
-  left: 65px;
+  left: 52px;
   top: 10px;
-  z-index: var(--goodsCount-index);
 }
 .menuCart img{
   width: 47px;
   height: 69px;
   vertical-align: middle;
   
-  position: relative;
-  bottom: 19px;
+  position: absolute;
+  bottom: 0px;
   left: 12.5rem;
 }
 .menuCart .left span{
-  margin-left: 20px;
+  padding-left: 67px;
 }
 .spanon{
   color: #FFFFFF;
@@ -303,5 +337,10 @@ export default {
   background-image: linear-gradient(to right,  var(--headerTop-bgStart), var(--headerTop-bgEnd));
 }
 
-
+.outCart-enter-active,.outCart-leave-active{
+  transition: opacity 400ms;
+}
+.outCart-enter,.outCart-leave-to{
+  opacity: 0;
+}
 </style>

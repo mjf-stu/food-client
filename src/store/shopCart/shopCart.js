@@ -61,7 +61,7 @@ const shopCart = {
                     }
                     total = Math.floor(total*100)/100
                     // 由于如果goods的长度为0就不会有对应的shop——id所以只要存在shop——id那么就有goods
-                    return {goods:shop_from_shopId.goods,total,count}
+                    return {goods:shop_from_shopId[0].goods,total,count}
                 }
             }
         }
@@ -79,7 +79,9 @@ const shopCart = {
                         name: payload.foodInfo.foodName, 
                         tagName: payload.foodInfo.tagName, 
                         number: 1, 
-                        money: payload.foodInfo.minPrice
+                        money: payload.foodInfo.minPrice,
+                        foodImg: payload.foodInfo.foodImg
+
                     }]
                 })
             }
@@ -118,6 +120,12 @@ const shopCart = {
                 let index = state.cart.findIndex(item=>item.shop_id === payload.shop_id)
                 state.cart.splice(index,1)
             }
+        },
+
+        // 根据shop———id清空购物车
+        cleanGoods(state,payload){
+            let index = state.cart.findIndex(item=>item.shop_id === payload.shop_id)
+            state.cart.splice(index,1)
         }
     },
     actions: {
