@@ -86,6 +86,7 @@ export default {
 input{
     font-size: 16px;
     height: 20rem;
+    width: 100%;
 }
 input::placeholder{
     color: #cccccc;

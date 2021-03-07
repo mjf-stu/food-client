@@ -17,3 +17,13 @@ export function shopDetail(shop_id){
         }
     })
 }
+
+export function getShopById(shop_id){
+    return shopRequest({
+        method: "GET",
+        url: "/shop/id",
+        params: {
+            shop_id
+        }
+    })
+}

@@ -11,6 +11,7 @@ body{
 :root{
   /* z-index的定义 */
   --bs-index: 1;
+  --tips-index: 6;
   --login-index: 2;
   --sort-index: 2;
   --menu-index: 3;

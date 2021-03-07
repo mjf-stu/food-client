@@ -1,9 +1,10 @@
 <template>
     <div>
         <tab-bar class="tabbar"/>
-        <keep-alive exclude="ShopDetail">
+        <keep-alive exclude="ShopDetail,Order">
             <router-view/>
         </keep-alive>
+        <msg-tips/>
     </div>
 </template>
 
@@ -11,10 +12,14 @@
 // 组件的引入
 import TabBar from "./components/TabBar/TabBar.vue"
 
+import MsgTips from "./components/TipsControl/MsgTips.vue"
+
+
 export default {
     name : "App",
     components : {
-        TabBar
+        TabBar,
+        MsgTips
     }
 }
 </script>

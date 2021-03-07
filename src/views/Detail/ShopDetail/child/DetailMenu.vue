@@ -55,7 +55,7 @@
         <div>1份起送</div>
       </div>
       <div class="right" v-show="getAllGoods() !== 0">
-        <div class="divon">去结算</div>
+        <div class="divon" @click="payOrder">去结算</div>
       </div>
     </div>
     <!-- 购物车的购物列表 -->
@@ -71,10 +71,11 @@
 
 <script>
 // 引入axios请求函数
-import { shopDetail } from "@/network/shop_req.js";
+import { shopDetail } from "@/network/shop_req.js"
+import { insertOrder } from "@/network/user_req.js"
 
 // 引入公共组件
-import MenuItem from "./MenuItem.vue";
+import MenuItem from "./MenuItem.vue"
 
 // 引入兄弟组件
 import CartList from "./CartList.vue"
@@ -162,6 +163,32 @@ export default {
       this.CartListIsShow = 0
     },
 
+    // 监听结算按钮
+    payOrder(){
+      if(Object.keys(this.getUserInfo()).length!==0){
+        this.$bus.$emit("showTips","下单成功")
+        let goods = this.getAllGoods().goods
+        let arr = []
+        for(let i=0 ; i<goods.length; i++){
+          arr[i]=goods[i].name+" "+" x"+goods[i].number+" ￥"+goods[i].money
+        }
+        // 将订单插入数据库
+        insertOrder({
+          uId:this.getUserInfo().uId,
+          shop_id:this.shop_id,
+          foodMsg:arr.join("@@@"),
+          total:"￥"+this.getAllGoods().total
+          })
+        // 清空当前商家的购物车
+        this.cleanGoods()
+        // 跳转到订单页
+        this.$router.push("/Order")
+      }
+      else{
+        this.$bus.$emit("showTips","请先进行账号登录再进行结算")
+      }
+    },
+
     //   数据库请求相关=============
     //   获取详情数据
     getShopDetail(shop_id) {
@@ -174,16 +201,31 @@ export default {
       });
     },
 
-    // 自定义函数=============
+    // 自定义函数=============store状态管理相关的监听
+    // 通过tagname获取对应购物车的商品数量
     getTagCount(shop_id,tagName){
       return this.$store.getters["shopCart/getGoodsNumberByTagName"](shop_id,tagName)
     },
 
+    // 获取当前商店的所有购物车商品
     getAllGoods(){
       if(this.$store.getters["shopCart/getAllGoods"](this.shop_id)===0 && this.CartListIsShow ===1){
         this.CartListIsShow = 0
       }
       return this.$store.getters["shopCart/getAllGoods"](this.shop_id)
+    },
+
+    // 用户是否登录状态
+    getUserInfo(){
+      return this.$store.getters["userLogin/getUserInfo"]
+    },
+
+    // 提交订单成功清空购物车
+    cleanGoods(){
+      this.$store.commit({
+        type: "shopCart/cleanGoods",
+        shop_id: this.shop_id
+      })
     }
   },
 };
