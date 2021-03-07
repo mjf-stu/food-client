@@ -1,10 +1,10 @@
 import {shopRequest} from "./axios.js"
 
-export function shopList(page,cateName){
+export function shopList(page,cateName,sort=""){
     return shopRequest({
         method: "GET",
         url: "/shop",
-        params: {page,cateName}
+        params: {page,cateName,sort}
     })
 }
 

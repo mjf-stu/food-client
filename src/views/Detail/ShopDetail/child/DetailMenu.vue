@@ -166,7 +166,7 @@ export default {
     // 监听结算按钮
     payOrder(){
       if(Object.keys(this.getUserInfo()).length!==0){
-        this.$bus.$emit("showTips","下单成功")
+        this.$bus.$emit("showTips","快去看看你的订单吧")
         let goods = this.getAllGoods().goods
         let arr = []
         for(let i=0 ; i<goods.length; i++){
@@ -182,7 +182,7 @@ export default {
         // 清空当前商家的购物车
         this.cleanGoods()
         // 跳转到订单页
-        this.$router.push("/Order")
+        this.$router.push("/Home")
       }
       else{
         this.$bus.$emit("showTips","请先进行账号登录再进行结算")

@@ -61,6 +61,9 @@ export default {
       if(this.bs!==null){
         this.bs.refresh()
       }
+    },
+    ScrollTo(y){
+      this.bs.scrollTo(0,y)
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div class="sort">
-    <div>全部美食</div>
+    <div :class="{noClick: isclick === 0,isClick: isclick === 1}" @click="show(1)">{{sortName}}</div>
     <div>附近商家</div>
-    <div>只能排序</div>
+    <div>智能排序</div>
     <div>筛选选项</div>
   </div>
 </template>
@@ -10,6 +10,17 @@
 <script>
 export default {
   name: "HomeSort",
+  data(){
+    return {
+      isclick: 0,
+      sortName: "默认排序"
+    }
+  },
+  methods:{
+    show(index){
+      this.$emit("selectSort",index,this)
+    }
+  }
 };
 </script>
 
@@ -30,7 +41,7 @@ export default {
   position: relative;
   flex: 1;
 }
-.sort > div::after {
+.noClick::after {
   content: "";
   width: 0rem;
   height: 0rem;
@@ -43,5 +54,20 @@ export default {
 
   border: 5rem transparent solid;
   border-top: 5rem var(--comp-color) solid;
+}
+.isClick::after{
+  content: "";
+  width: 0rem;
+  height: 0rem;
+  display: block;
+
+  position: absolute;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-25%);
+
+  border: 5rem transparent solid;
+  border-bottom: 5rem var(--comp-color) solid;
+
 }
 </style>

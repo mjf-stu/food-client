@@ -44,3 +44,7 @@ data7
          this.msg = info
      })
 以上类型的函数，回调函数最好使用箭头函数，否则内部的this不会指向当前的vue组件，导致一系列操作不能进行响应
+
+date7晚上
+注意  this.$refs.xxxx  如果是在原生上使用ref属性那么获取的就是原生dom
+如果this.$refs.xxx 用在封装后的组件上那么  获取的就是虚拟dom  想要获取原生dom就需要进行$el
